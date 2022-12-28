@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.blog.common.dto.response.ErrorResponse;
 import com.blog.controller.filetransfer.FileTransferController;
 
-@RestControllerAdvice(basePackageClasses = FileTransferController.class) // body 사용가능
-@Order(Ordered.HIGHEST_PRECEDENCE) //  보다 먼저
+@RestControllerAdvice(basePackageClasses = FileTransferController.class) // body 사용가능, 특정 controller 적용가능
+@Order(Ordered.HIGHEST_PRECEDENCE) // 다른 예외처리 보다 먼저
 public class ExceptionAdvisor {
 	protected Logger logger = LogManager.getLogger(this.getClass());
 
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseStatus(HttpStatus.BAD_REQUEST) // HttpStatus 적용
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ErrorResponse processValidationError(MethodArgumentNotValidException exception) {
 		BindingResult bindingResult = exception.getBindingResult();
@@ -40,7 +40,7 @@ public class ExceptionAdvisor {
 
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler({ Exception.class })
-	protected ErrorResponse handleServerException(Exception exception) {
+	protected ErrorResponse handleServerException(Exception exception) { // 상위 예외를 제외한 예외들 모두
 
 		ErrorResponse errorResponse = new ErrorResponse();
 		errorResponse.setResultCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
