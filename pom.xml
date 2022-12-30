@@ -292,6 +292,9 @@
 		<!-- Local server -->
 		<profile>
 			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<properties>
 				<env>local</env>
 			</properties>
@@ -299,11 +302,15 @@
 		<!-- Development server -->
 		<profile>
 			<id>dev</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 			<properties>
 				<env>dev</env>
+			</properties>
+		</profile>
+		<!-- Release server -->
+		<profile>
+			<id>release</id>
+			<properties>
+				<env>release</env>
 			</properties>
 		</profile>
 	</profiles>

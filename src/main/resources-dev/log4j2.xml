@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<properties>
+        <property name="path">/usr/local/share/apache-tomcat</property>
+    </properties>
+    <Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+		    <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%c] %-5p %F.%M():%L - %m%n"></PatternLayout>
+		</Console>
+<!--         <RollingFile name="dailyRollingFile" fileName="./logs/lulu/LuluPortal.log" filePattern="./logs/lulu/LuluPortal_%d{yyyy-MM-dd}.log">
+			<PatternLayout pattern="[%d{HH:mm:ss,SSS}-%-5p] %m (%F.%M():%L) [%c]%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+		</RollingFile> -->
+		<RollingFile name="debugFile" fileName="${path}/debug_log/debug.log" filePattern="${path}/debug_log/debug.log_%d{yyyy-MM-dd}.log">
+			<PatternLayout pattern="%m%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+		</RollingFile>
+       
+    </Appenders>
+    <Loggers>
+        
+        <Logger name="com.duzon.common" level="DEBUG" additivity="false">
+            <AppenderRef ref="console" />
+<!--             <AppenderRef ref="dailyRollingFile" level="INFO" /> -->
+        </Logger>
+        
+        <Logger name="com.duzon.lulu" level="DEBUG" additivity="false">
+            <AppenderRef ref="console" />
+			<!-- <AppenderRef ref="debugFile"/> -->
+        </Logger>
+        
+        <Logger name="java.sql" level="INFO" additivity="false">
+            <AppenderRef ref="console" />
+<!--             <AppenderRef ref="dailyRollingFile" /> -->
+        </Logger>
+        <Logger name="jdbc.sqltiming" level="INFO" additivity="false">
+            <AppenderRef ref="console" />
+<!--             <AppenderRef ref="dailyRollingFile" /> -->
+        </Logger>
+        <Logger name="org.springframework" level="INFO" additivity="false">
+            <AppenderRef ref="console" />
+<!--             <AppenderRef ref="dailyRollingFile" /> -->
+        </Logger>
+        <Logger name="com.duzon.lulu.common.service.impl.LogWriterServiceImpl" level="DEBUG" additivity="false">
+        	<AppenderRef ref="console" />
+           <!--  <AppenderRef ref="logFile" /> -->
+        </Logger>
+        
+        <Root level="ERROR">
+            <AppenderRef ref="console" />
+<!--             <AppenderRef ref="dailyRollingFile" /> -->
+        </Root>
+        
+    </Loggers>
+</Configuration>
