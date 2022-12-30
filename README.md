@@ -4,6 +4,7 @@ team project for growth
 #spec
 * spring 4.0.0  
 * java 8
+* tomcat 8.5
 * MySQL
 
 #test
