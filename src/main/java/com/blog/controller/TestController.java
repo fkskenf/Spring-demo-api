@@ -3,6 +3,9 @@ package com.blog.controller;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,6 +19,9 @@ import com.blog.dto.testDto.TestDto;
 // old :@Controller //(@RestController에 포함)Controller로 정의되어 있어야 jsp파일을 읽을 수 있다. 
 @RestController // (@Controller + @ResponseBody)
 public class TestController {
+	
+	@Autowired
+	private SqlSessionFactory sqlSessionFactory;
 
 	static {
 		try {
@@ -38,7 +44,7 @@ public class TestController {
 	}
 
 	/*
-	 * Test Jdbc Connection
+	 * Test Jdbc Connection (only MySQL)
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@GetMapping(value = "testJdbcConnection")
@@ -59,4 +65,23 @@ public class TestController {
 
 		return new ResponseEntity("JDBC CONNECTION SUCCESS!!!", HttpStatus.OK);
 	}
+	
+	/*
+	 * Test DB Connect (datasource, mybatis)
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@GetMapping(value = "testDbConnect")
+	public ResponseEntity<?> testDbConnect(TestDto dto) {
+		System.out.println("DB CONNECT RPOCESS...");
+
+		try (SqlSession session = sqlSessionFactory.openSession()) {
+			System.out.println(session);
+			System.out.println("DB CONNECT SUCCESS!!!");
+		} catch (Exception e) {
+			System.out.println("DB CONNECT FAIL!!!");
+			e.printStackTrace();
+		}
+		return new ResponseEntity("DB CONNECT SUCCESS!!!", HttpStatus.OK);
+	}
+
 }

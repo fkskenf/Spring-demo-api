@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!--[설명] 
+	1. sqlSession이란 sql문을 실제로 호출해주는 객체로 sqlSession객체를 이용하여 우리가 정의한 sql문으로 접근 
+	2. sqlSessionFactory란 sqlSession을 만드는 역할을 담당
+	 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath*:/mapper/*.xml" />
+	</bean>
+	
+	<!--[설명]
+	1. sqlSessionTemplate은 DAO와 DB를 직접연결 맺고, 종료할 필요가 없게 해줍니다.
+	2. mybatis-spring에서 제공하는 SqlSessionTemplate은 MyBatis의 SqlSession 인터페이스를 구현한 클래스로,
+       기본적인 트랜잭션의 관리나 쓰레드 처리의 안정성 등을 보장해주고, 데이터베이스의 연결과 종료를 책임집니
+	 -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSession"/>
+    </bean>  
+</beans>
