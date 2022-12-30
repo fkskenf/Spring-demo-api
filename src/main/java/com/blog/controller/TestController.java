@@ -67,14 +67,14 @@ public class TestController {
 	}
 	
 	/*
-	 * Test DB Connect (datasource, mybatis)
+	 * Test DB Connect
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@GetMapping(value = "testDbConnect")
 	public ResponseEntity<?> testDbConnect(TestDto dto) {
 		System.out.println("DB CONNECT RPOCESS...");
 
-		try (SqlSession session = sqlSessionFactory.openSession()) {
+		try (SqlSession session = sqlSessionFactory.openSession()) { // @Autowired 선언
 			System.out.println(session);
 			System.out.println("DB CONNECT SUCCESS!!!");
 		} catch (Exception e) {
