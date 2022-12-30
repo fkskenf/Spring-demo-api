@@ -2,11 +2,19 @@
 team project for growth
 
 #spec
+* spring 4.0.0  
+* java 8
+* MySQL
 
 #test
-1. http://127.0.0.1:8080/blog_project --> Hello World!!
-2. http://127.0.0.1:8080/blog_project/test --> sucess
-3. Junit
+* TestController > method
+1. Test server : http://127.0.0.1:8080/blog_project 
+    --> "Hello World!!"
+2. Test contoller : http://127.0.0.1:8080/blog_project/testController 
+    --> "TEST CONTROLLER SUCESS!!!!"
+3. Test Jdbc (MySQL) : http://127.0.0.1:8080/blog_project/testJdbcConnection
+    --> "JDBC CONNECTION SUCCESS!!!"
+4. Else if test : Junit
 
 #order
 1. client > filter > dispatcher-servlet > intercepter > controller > service > repository(mapper) 
