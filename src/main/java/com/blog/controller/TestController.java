@@ -2,6 +2,9 @@ package com.blog.controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.HashMap;
+
+import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -13,12 +16,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.dto.testDto.TestDto;
+import com.blog.mapper.testMapper;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 
 // old :@Controller //(@RestController에 포함)Controller로 정의되어 있어야 jsp파일을 읽을 수 있다. 
 @RestController // (@Controller + @ResponseBody)
 public class TestController {
+	
+	@Resource(name = "testmapper")
+	private final testMapper testMapper;
+
+	@Autowired
+	TestController(testMapper testMapper) {
+		this.testMapper = testMapper;
+	}
 	
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
@@ -83,5 +95,22 @@ public class TestController {
 		}
 		return new ResponseEntity("DB CONNECT SUCCESS!!!", HttpStatus.OK);
 	}
+	
+	/*
+	 * Test Dao/Mybatis Connect
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@GetMapping(value = "testDaoConnect")
+	public ResponseEntity<?> testDaoConnect(TestDto dto) {
+		System.out.println("DAO RPOCESS...");
+		
+		HashMap<String, Object> selectMap = new HashMap<String, Object>();
+		testMapper.select(selectMap);
+		
+		System.out.println("DAO SUCCESS...");
+
+		return new ResponseEntity("DAO SUCCESS!!!", HttpStatus.OK);
+	}
+
 
 }
