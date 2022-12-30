@@ -50,7 +50,7 @@ public class TestController {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://127.0.0.1:3306/sys?serverTimezone=UTC&autoReconnect=true&useSSL=false"
 					, "root"
-					,"ses8178@");
+					,"*******");
 			System.out.println("JDBC CONNECTION SUCCESS!!!");
 		} catch (Exception e) {
 			System.out.println("JDBC CONNECTION FAIL!!!");
